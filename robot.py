@@ -17,22 +17,26 @@ with serial.Serial() as arduino:
     arduino.bytesize = bytesize
     arduino.timeout = 1
 
-try:
-    if arduino:
-        arduino.open()
-    count = True
-    while count:
-        try:
-            msg = arduino.readline()[:-2].decode('ascii')
-            if msg:
-                st.title(msg)
-        except(SerialException):
-            st.write("Arduino is Disconnected...")
-            count = False
+expander = st.sidebar.beta_expander("Status Report")
+if st.sidebar.button("Connect"):
+    try:
+        if arduino:
+            arduino.open()
+        count = True
+        while count:
+            try:
+                msg = arduino.readline()[:-2].decode('ascii')
+                if msg:
+                    expander.write(msg)
+            except(SerialException):
+                expander.write("Arduino is Disconnected...")
+                count = False
 
-except(SerialException):
-    st.write("# Connect Arduino and Refresh Page...")
+    except(SerialException):
+        expander.write("Plug in the Arduino...!!!")
 
 # TODO: design the interface for the robot monitoring app
-
+c1, c2 = st.beta_columns(2)
+c1.header("Data")
+c2.header("Graph")
 
