@@ -1,6 +1,8 @@
 import serial
 from serial.serialutil import SerialException
 import streamlit as st
+import numpy as np
+import pandas as pd
 
 # TODO: simplify this code
 # instantiate the arduino microcontroller
@@ -17,8 +19,10 @@ with serial.Serial() as arduino:
     arduino.bytesize = bytesize
     arduino.timeout = 1
 
+st.set_page_config(layout="wide")
 st.sidebar.title("STATUS REPORT")
 expander = st.sidebar.beta_expander("Report")
+arduino.close()
 if st.sidebar.button("Connect"):
     try:
         if arduino:
@@ -39,5 +43,13 @@ if st.sidebar.button("Connect"):
 # TODO: design the interface for the robot monitoring app
 c1, c2 = st.beta_columns(2)
 c1.header("Data")
+# using random sample dat
+chart_data = pd.DataFrame(
+     np.random.randn(20, 6),
+     columns=['a', 'b', 'c', 'd', 'e', 'f'])
+c1.write(chart_data)
+
+
 c2.header("Graph")
+c2.line_chart(chart_data)
 
