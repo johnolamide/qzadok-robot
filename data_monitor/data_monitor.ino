@@ -20,13 +20,15 @@ void setup() {
   radio.startListening();
 
 }
-// TODO: handle when it's not receiving data
 void loop() {
   
   if (radio.available()) {
-    char text[32] = "";
-    radio.read(&text, sizeof(text));
-    Serial.println(text);
+    
+    while (radio.available()) {
+      int speed_sensor_data = 0;
+      radio.read(&speed_sensor_data, sizeof(speed_sensor_data));
+      Serial.println(speed_sensor_data);
+    }
   }
 
 }
