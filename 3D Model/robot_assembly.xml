@@ -1,0 +1,630 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<SimMechanicsImportXML version="1.0" xmlns="urn:mathworks:simmechanics:import" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<Created by="Captain" on="07/14/21||13:13:07" using="SimMechanics Link Version 4.6" from="Autodesk Inventor 2015 (Build 190159000, 159)"/>
+<ModelUnits mass="kilogram" length="millimeter"/>
+<DataUnits mass="kilogram" length="centimeter"/>
+<RootAssembly name="robot_assembly" uid="robot_assembly_9EBB8384-4E04-B6BD-293D-0A874AA2CF79" version="{A0AC87D6-90D2-62FF-2BBB-D59B2A711C54}">
+<AssemblyFile name="robot_assembly.iam" type="Inventor Assembly"/>
+<InstanceTree>
+<Instance name="chassis:1" uid="chassis:1" entityUid="chassis_7B22FCE7-4D4C-B826-DE1C-4D97B8413C8B">
+<Transform>
+<Rotation>0.99999999999998335 2.9663771439204368e-016 1.0222819355984135e-015 -9.3675067702746715e-016 0.99999999999998535 -2.4722343527439094e-015 0 3.5892897282693279e-016 0.99999999999998535</Rotation>
+<Translation>-2.3648010096573762 -4.0496123836223576 17.895550639530477</Translation>
+</Transform>
+<VisualProperties>
+<Ambient r="0.90196078431372551" g="0.90196078431372551" b="0.90196078431372551" a="0.40000000596046448"/>
+<Diffuse r="0.90196078431372551" g="0.90196078431372551" b="0.90196078431372551" a="0.40000000596046448"/>
+<Specular r="0" g="0" b="0" a="0.40000000596046448"/>
+<Emissive r="0" g="0" b="0" a="0.40000000596046448"/>
+<Shininess>0.25</Shininess>
+</VisualProperties>
+</Instance>
+<Instance name="wheel:1" uid="wheel:1" entityUid="wheel_464DDD35-4CC7-D319-D490-2E8D5FBDDF01">
+<Transform>
+<Rotation>0.99999999999998734 2.89640181448288e-016 5.0422258120931151e-016 -5.1868231931707252e-016 -0.6790092311669168 0.73412973239754209 0 -0.73412973239754331 -0.67900923116691569</Rotation>
+<Translation>5.3151989903425108 -4.2996123836223745 20.388328288329667</Translation>
+</Transform>
+</Instance>
+<Instance name="motor_dc:1" uid="motor_dc:1" entityUid="motor_dc_1D7F5378-4C77-BFCF-6FDF-C59DF22A18DF">
+<Transform>
+<Rotation>0.99999999999999001 -5.5500525610214901e-016 -5.2388648974500126e-016 -4.1190778105446399e-016 8.4843856645292293e-016 -0.99999999999998845 8.3136179770797503e-016 0.99999999999999134 -3.5892897282693407e-016</Rotation>
+<Translation>1.3521989903425569 -3.4526123836223799 19.338328288329667</Translation>
+</Transform>
+</Instance>
+<Instance name="wheel:2" uid="wheel:2" entityUid="wheel_464DDD35-4CC7-D319-D490-2E8D5FBDDF01">
+<Transform>
+<Rotation>-0.99999999999999267 -2.0935656939852577e-016 8.0238742786081628e-016 1.3305288310553617e-016 -0.84831349359091546 -0.52949430269984288 0 -0.52949430269984055 0.84831349359090513</Rotation>
+<Translation>-10.04480100965727 -4.2996123836223612 20.38832828832966</Translation>
+</Transform>
+</Instance>
+<Instance name="motor_dc:2" uid="motor_dc:2" entityUid="motor_dc_1D7F5378-4C77-BFCF-6FDF-C59DF22A18DF">
+<Transform>
+<Rotation>0.9999999999999909 7.9152919287133005e-016 7.816143564793261e-016 4.1008147478218035e-016 -1.4860341634395107e-015 -0.99999999999998535 -8.0540698067916187e-016 0.99999999999999156 -3.5892897282693367e-016</Rotation>
+<Translation>-6.081801009657303 -3.4526123836223781 19.338328288329674</Translation>
+</Transform>
+</Instance>
+<Instance name="castor_wheel:1" uid="castor_wheel:1" entityUid="castor_wheel_EE3E4825-4AC2-E72F-1F06-9F90929F952A" rigid="true">
+<Transform>
+<Rotation>-0.0027316629915487313 0.9999962690016887 -1.0915334762043362e-015 0.99999626900169181 0.002731662991552523 5.4779344714159322e-015 6.1801001443508372e-015 1.1301871167938047e-015 -0.99999999999999645</Rotation>
+<Translation>-4.6397925216362221 -11.156634370344189 18.175550639530467</Translation>
+</Transform>
+<Instance name="wheel_40mm_pe:1" grounded="true" uid="wheel_40mm_pe:1" entityUid="wheel_40mm_pe_CDCDC5FB-46F1-75E0-D10B-529CF329BD61">
+<Transform>
+<Rotation>-0.83659497159957263 -2.980239466645308e-015 0.54782191768339317 -0.018250594185338524 -0.99944490697915433 -0.027871019452320907 0.54751782556022077 -0.033314830232639078 0.83613058356956316</Rotation>
+<Translation>-1.8499999999999108 3.0539049841385406 -2.9754805439613499</Translation>
+</Transform>
+<VisualProperties>
+<Ambient r="0.95686274509803926" g="0.95686274509803926" b="0.95686274509803926" a="1"/>
+<Diffuse r="0.95686274509803926" g="0.95686274509803926" b="0.95686274509803926" a="1"/>
+<Specular r="0.95686274509803926" g="0.95686274509803926" b="0.95686274509803926" a="1"/>
+<Emissive r="0" g="0" b="0" a="1"/>
+<Shininess>0.69999999999999996</Shininess>
+</VisualProperties>
+</Instance>
+<Instance name="axle:1" uid="axle:1" entityUid="axle_AAD2FA47-4A7F-C8E0-B9E0-C88462C512A5">
+<Transform>
+<Rotation>-0.58044543203057597 -1.6306246023353604e-015 0.81429914677275617 -0.027128237833314993 -0.99944490697915445 -0.019337441027409905 0.81384713499950179 -0.033314830232637517 0.58012323082227413</Rotation>
+<Translation>-1.8499999999999108 2.3043213039041803 -3.0004666666358304</Translation>
+</Transform>
+</Instance>
+<Instance name="base:1" uid="base:1" entityUid="base_5D56A623-4AEB-079D-0D9E-8A8483A7C71E">
+<Transform>
+<Rotation>0 -2.8832461961439295e-015 -1 -1 0 0 0 1 -2.8832461961439307e-015</Rotation>
+<Translation>1.7763568394002505e-015 2.2750000000000008 -0.099999999999997868</Translation>
+</Transform>
+</Instance>
+<Instance name="bracket:1" uid="bracket:1" entityUid="bracket_74FF415F-4601-1C8A-393A-B4BB3120B44F">
+<Transform>
+<Rotation>-1 2.8832461961439398e-015 0 0 0 -1 -2.883246196143941e-015 -1 0</Rotation>
+<Translation>3.5527136788005009e-015 2.2750000000000008 -0.40000000000000213</Translation>
+</Transform>
+</Instance>
+</Instance>
+<Instance name="motor_driver:1" uid="motor_driver:1" entityUid="motor_driver_30915606-4628-924E-D1F6-FF8934C86CEA">
+<Transform>
+<Rotation>-0.99999999999999822 -1.0836574192748077e-015 -2.966377143920494e-016 3.790370795009573e-016 2.7171637125734196e-015 -0.99999999999999756 0 -0.99999999999999734 -2.399943443463855e-015</Rotation>
+<Translation>-2.5688893790540961 -10.778472270760428 18.04645119276644</Translation>
+</Transform>
+</Instance>
+<Instance name="arduino_uno:1" uid="arduino_uno:1" entityUid="arduino_uno_76660304-4480-801E-7FB3-02B9E5A0CC37">
+<Transform>
+<Rotation>-3.4527063301805829e-016 0 0.99999999999999978 -0.99999999999999889 -9.9884946804642477e-016 -1.0300442281017258e-015 -4.8139365274167301e-016 -1.0000000000000016 0</Rotation>
+<Translation>0.92819429020286237 -7.0835236495930882 17.730550639530477</Translation>
+</Transform>
+</Instance>
+<Instance name="ultra_sonic_sensor:1" uid="ultra_sonic_sensor:1" entityUid="ultra_sonic_sensor_61A3D42D-4DF1-1204-E84E-ABA9A66C9E28">
+<Transform>
+<Rotation>0.6427876096865377 -0.76604444311897502 -1.8713628690331251e-015 0.76604444311897635 0.64278760968653792 -9.3549265645604619e-016 2.4303120918469747e-016 2.6876103851902297e-016 0.99999999999999922</Rotation>
+<Translation>-6.5120341893460694 3.0026360244347017 16.295550639530489</Translation>
+</Transform>
+</Instance>
+<Instance name="ultra_sonic_sensor:2" uid="ultra_sonic_sensor:2" entityUid="ultra_sonic_sensor_61A3D42D-4DF1-1204-E84E-ABA9A66C9E28">
+<Transform>
+<Rotation>1 0 0 0 1 -3.589289728269387e-016 0 3.589289728269387e-016 1</Rotation>
+<Translation>-2.4555012830658089 4.9035734872108137 16.295550639530479</Translation>
+</Transform>
+</Instance>
+<Instance name="ultra_sonic_sensor:3" uid="ultra_sonic_sensor:3" entityUid="ultra_sonic_sensor_61A3D42D-4DF1-1204-E84E-ABA9A66C9E28">
+<Transform>
+<Rotation>0.70710678118654635 0.70710678118654724 0 -0.70710678118654724 0.70710678118654635 -3.5892897282693865e-016 -2.889198871736363e-016 2.1868233412686391e-016 1</Rotation>
+<Translation>2.065174333961914 2.9701049973072338 16.295550639530479</Translation>
+</Transform>
+</Instance>
+</InstanceTree>
+<Constraints>
+<Coincident name="Mate:1">
+<ConstraintGeometry geomType="circle">
+<InstancePath>
+<Uid>wheel:1</Uid>
+</InstancePath>
+<Position>-2.6800000000000348 1.7763568394002505e-015 0</Position>
+<Axis>1.0000000000000127 0 0</Axis>
+</ConstraintGeometry>
+<ConstraintGeometry geomType="circle">
+<InstancePath>
+<Uid>chassis:1</Uid>
+</InstancePath>
+<Position>5.0000000000000808 -0.25000000000000266 2.4927776487992546</Position>
+<Axis>-1.0000000000000167 0 0</Axis>
+</ConstraintGeometry>
+</Coincident>
+<Concentric name="Insert:1">
+<ConstraintGeometry geomType="circle">
+<InstancePath>
+<Uid>motor_dc:1</Uid>
+</InstancePath>
+<Position>1.4330000000000143 1.0500000000000114 0.84700000000000975</Position>
+<Axis>1.00000000000001 0 0</Axis>
+</ConstraintGeometry>
+<ConstraintGeometry geomType="circle">
+<InstancePath>
+<Uid>wheel:1</Uid>
+</InstancePath>
+<Position>-2.6800000000000348 1.7763568394002505e-015 0</Position>
+<Axis>1.0000000000000127 0 0</Axis>
+</ConstraintGeometry>
+</Concentric>
+<Coincident name="Insert:1_Coincident">
+<ConstraintGeometry geomType="plane">
+<InstancePath>
+<Uid>motor_dc:1</Uid>
+</InstancePath>
+<Position>1.2830000000000126 1.0500000000000114 0.84700000000000975</Position>
+<Axis>1.00000000000001 0 0</Axis>
+</ConstraintGeometry>
+<ConstraintGeometry geomType="plane">
+<InstancePath>
+<Uid>wheel:1</Uid>
+</InstancePath>
+<Position>-2.6800000000000348 1.7763568394002505e-015 0</Position>
+<Axis>1.0000000000000127 0 0</Axis>
+</ConstraintGeometry>
+</Coincident>
+<Angle name="Angle:1">
+<ConstraintGeometry geomType="cylinder">
+<InstancePath>
+<Uid>motor_dc:1</Uid>
+</InstancePath>
+<Position>-6.6613381477509392e-016 1.0500000000000078 -2.9060000000000343</Position>
+<Axis>-1.1197870869054031e-016 -1.2073675392798786e-015 -1.0000000000000115</Axis>
+</ConstraintGeometry>
+<ConstraintGeometry geomType="line">
+<InstancePath>
+<Uid>chassis:1</Uid>
+</InstancePath>
+<Position>4.9999999999999991 -8.0777472107017623 0.28000000000000114</Position>
+<Axis>0 7.1777472107017566 9.7641224525195154e-016</Axis>
+</ConstraintGeometry>
+</Angle>
+<Coincident name="Mate:2">
+<ConstraintGeometry geomType="circle">
+<InstancePath>
+<Uid>wheel:2</Uid>
+</InstancePath>
+<Position>-2.6800000000000193 8.8817841970012523e-016 0</Position>
+<Axis>1.0000000000000073 0 0</Axis>
+</ConstraintGeometry>
+<ConstraintGeometry geomType="circle">
+<InstancePath>
+<Uid>chassis:1</Uid>
+</InstancePath>
+<Position>-5.0000000000000853 -0.25000000000000266 2.4927776487992546</Position>
+<Axis>-1.0000000000000167 0 0</Axis>
+</ConstraintGeometry>
+</Coincident>
+<Concentric name="Insert:2">
+<ConstraintGeometry geomType="circle">
+<InstancePath>
+<Uid>motor_dc:2</Uid>
+</InstancePath>
+<Position>-1.433000000000014 1.0500000000000078 0.84700000000001285</Position>
+<Axis>1.0000000000000091 0 0</Axis>
+</ConstraintGeometry>
+<ConstraintGeometry geomType="circle">
+<InstancePath>
+<Uid>wheel:2</Uid>
+</InstancePath>
+<Position>-2.6800000000000193 8.8817841970012523e-016 0</Position>
+<Axis>1.0000000000000073 0 0</Axis>
+</ConstraintGeometry>
+</Concentric>
+<Coincident name="Insert:2_Coincident">
+<ConstraintGeometry geomType="plane">
+<InstancePath>
+<Uid>motor_dc:2</Uid>
+</InstancePath>
+<Position>-1.2830000000000119 1.0500000000000078 0.84700000000001285</Position>
+<Axis>1.0000000000000091 0 0</Axis>
+</ConstraintGeometry>
+<ConstraintGeometry geomType="plane">
+<InstancePath>
+<Uid>wheel:2</Uid>
+</InstancePath>
+<Position>-2.6800000000000193 8.8817841970012523e-016 0</Position>
+<Axis>1.0000000000000073 0 0</Axis>
+</ConstraintGeometry>
+</Coincident>
+<Angle name="Angle:2">
+<ConstraintGeometry geomType="cylinder">
+<InstancePath>
+<Uid>motor_dc:2</Uid>
+</InstancePath>
+<Position>1.7763568394002505e-015 1.0500000000000114 -2.9060000000000428</Position>
+<Axis>3.715328816971571e-016 1.1271051906125946e-015 -1.0000000000000147</Axis>
+</ConstraintGeometry>
+<ConstraintGeometry geomType="line">
+<InstancePath>
+<Uid>chassis:1</Uid>
+</InstancePath>
+<Position>-5 -0.9000000000000048 0.27999999999999758</Position>
+<Axis>3.5283368766619256e-016 -7.1777472107017566 -9.7641224525195154e-016</Axis>
+</ConstraintGeometry>
+</Angle>
+<Angle name="Angle:3">
+<ConstraintGeometry geomType="cylinder">
+<InstancePath>
+<Uid>wheel:2</Uid>
+</InstancePath>
+<Position>-2.6800000000000193 8.8817841970012523e-016 0</Position>
+<Axis>1.0000000000000073 0 0</Axis>
+</ConstraintGeometry>
+<ConstraintGeometry geomType="cylinder">
+<InstancePath>
+<Uid>chassis:1</Uid>
+</InstancePath>
+<Position>-1.1818474785542223 -0.25000000000000266 2.4927776487992546</Position>
+<Axis>-1.0000000000000167 0 0</Axis>
+</ConstraintGeometry>
+</Angle>
+<Coincident name="Mate:3">
+<ConstraintGeometry geomType="circle">
+<InstancePath>
+<Uid>castor_wheel:1</Uid>
+</InstancePath>
+<Position>1.7763568394002505e-015 2.2750000000000008 3.5527136788005009e-015</Position>
+<Axis>-2.8832461961439402e-015 2.2067526496228891e-015 1.0000000000000036</Axis>
+</ConstraintGeometry>
+<ConstraintGeometry geomType="circle">
+<InstancePath>
+<Uid>chassis:1</Uid>
+</InstancePath>
+<Position>-5.3290705182007514e-015 -7.1008074534162535 0.28000000000000469</Position>
+<Axis>9.7261648554512266e-016 -2.1133053799170379e-015 -1.0000000000000147</Axis>
+</ConstraintGeometry>
+</Coincident>
+<Angle name="Angle:4">
+<ConstraintGeometry geomType="line">
+<InstancePath>
+<Uid>castor_wheel:1</Uid>
+</InstancePath>
+<Position>3.5527136788005009e-015 2.2750000000000008 -0.45000000000000284</Position>
+<Axis>0 0 0</Axis>
+</ConstraintGeometry>
+<ConstraintGeometry geomType="cylinder">
+<InstancePath>
+<Uid>chassis:1</Uid>
+</InstancePath>
+<Position>-4.4408920985006262e-016 8.8817841970012523e-016 0.28000000000000469</Position>
+<Axis>9.7261648554512266e-016 -2.1133053799170379e-015 -1.0000000000000147</Axis>
+</ConstraintGeometry>
+</Angle>
+<Angle name="Angle:5">
+<ConstraintGeometry geomType="plane">
+<InstancePath>
+<Uid>motor_driver:1</Uid>
+</InstancePath>
+<Position>0 0 0</Position>
+<Axis>1.1488531086395896e-015 -1.0000000000000027 0</Axis>
+</ConstraintGeometry>
+<ConstraintGeometry geomType="plane">
+<InstancePath>
+<Uid>castor_wheel:1</Uid>
+</InstancePath>
+<Position>1.7763568394002505e-015 2.2750000000000021 3.5527136788005009e-015</Position>
+<Axis>-2.8832461961439402e-015 2.2067526496228891e-015 1.0000000000000036</Axis>
+</ConstraintGeometry>
+</Angle>
+<Angle name="Angle:6">
+<ConstraintGeometry geomType="line">
+<InstancePath>
+<Uid>motor_driver:1</Uid>
+</InstancePath>
+<Position>-2.1750000000000012 -3.5527136788005009e-015 2.1750000000000007</Position>
+<Axis>0 -2.1838705733373033e-016 -4.3500000000000014</Axis>
+</ConstraintGeometry>
+<ConstraintGeometry geomType="line">
+<InstancePath>
+<Uid>chassis:1</Uid>
+</InstancePath>
+<Position>-5 -0.9000000000000048 0.27999999999999758</Position>
+<Axis>3.5283368766619256e-016 -7.1777472107017566 -9.7641224525195154e-016</Axis>
+</ConstraintGeometry>
+</Angle>
+<Angle name="Angle:7">
+<ConstraintGeometry geomType="line">
+<InstancePath>
+<Uid>wheel:2</Uid>
+</InstancePath>
+<Position>-0.19999999999999929 8.8817841970012523e-016 0</Position>
+<Axis>0 0 0</Axis>
+</ConstraintGeometry>
+<ConstraintGeometry geomType="cylinder">
+<InstancePath>
+<Uid>wheel:1</Uid>
+</InstancePath>
+<Position>-2.6800000000000348 1.7763568394002505e-015 0</Position>
+<Axis>1.0000000000000127 0 0</Axis>
+</ConstraintGeometry>
+</Angle>
+<Angle name="Angle:8">
+<ConstraintGeometry geomType="line">
+<InstancePath>
+<Uid>wheel:1</Uid>
+</InstancePath>
+<Position>-0.20000000000000284 1.7763568394002505e-015 0</Position>
+<Axis>0 0 0</Axis>
+</ConstraintGeometry>
+<ConstraintGeometry geomType="line">
+<InstancePath>
+<Uid>chassis:1</Uid>
+</InstancePath>
+<Position>5 -8.0777472107017623 0</Position>
+<Axis>1.7591002781147863e-016 14.377747210701761 -1.6078763591020036e-015</Axis>
+</ConstraintGeometry>
+</Angle>
+<Angle name="Angle:9">
+<ConstraintGeometry geomType="line">
+<InstancePath>
+<Uid>arduino_uno:1</Uid>
+</InstancePath>
+<Position>-5.3340000000000005 0 5.5511151231257827e-016</Position>
+<Axis>5.3340000000000005 9.8495993507641552e-016 -6.0081709765702158e-016</Axis>
+</ConstraintGeometry>
+<ConstraintGeometry geomType="line">
+<InstancePath>
+<Uid>chassis:1</Uid>
+</InstancePath>
+<Position>5 -8.0777472107017623 0</Position>
+<Axis>1.7591002781147863e-016 14.377747210701761 -1.6078763591020036e-015</Axis>
+</ConstraintGeometry>
+</Angle>
+<Coincident name="Mate:4">
+<ConstraintGeometry geomType="plane">
+<InstancePath>
+<Uid>arduino_uno:1</Uid>
+</InstancePath>
+<Position>0 -0.16499999999999915 0</Position>
+<Axis>1.4802431207880985e-015 -0.99999999999999845 0</Axis>
+</ConstraintGeometry>
+<ConstraintGeometry geomType="plane">
+<InstancePath>
+<Uid>chassis:1</Uid>
+</InstancePath>
+<Position>6.6513156593264746 6.500000000000095 3.5527136788005009e-015</Position>
+<Axis>-9.7261648554512266e-016 2.1133053799170379e-015 1.0000000000000147</Axis>
+</ConstraintGeometry>
+</Coincident>
+<Coincident name="Mate:5">
+<ConstraintGeometry geomType="plane">
+<InstancePath>
+<Uid>ultra_sonic_sensor:1</Uid>
+</InstancePath>
+<Position>-0.13869704606809208 0.059999999999998721 1.5999999999999979</Position>
+<Axis>1.6764866073140205e-015 -1.1009850768783485e-015 1.0000000000000007</Axis>
+</ConstraintGeometry>
+<ConstraintGeometry geomType="plane">
+<InstancePath>
+<Uid>chassis:1</Uid>
+</InstancePath>
+<Position>6.6513156593264746 6.500000000000095 3.5527136788005009e-015</Position>
+<Axis>-9.7261648554512266e-016 2.1133053799170379e-015 1.0000000000000147</Axis>
+</ConstraintGeometry>
+</Coincident>
+<Angle name="Angle:10">
+<ConstraintGeometry geomType="plane">
+<InstancePath>
+<Uid>ultra_sonic_sensor:1</Uid>
+</InstancePath>
+<Position>-6.6613381477509392e-016 0.12000000000000011 -3.5527136788005009e-015</Position>
+<Axis>-1.0547118733938981e-015 1.0000000000000033 0</Axis>
+</ConstraintGeometry>
+<ConstraintGeometry geomType="line">
+<InstancePath>
+<Uid>chassis:1</Uid>
+</InstancePath>
+<Position>-6.6513156593263609 6.3000000000000007 3.5527136788005009e-015</Position>
+<Axis>1.6513156593263609 2.1460343230984227e-016 0</Axis>
+</ConstraintGeometry>
+</Angle>
+<Coincident name="Mate:6">
+<ConstraintGeometry geomType="plane">
+<InstancePath>
+<Uid>ultra_sonic_sensor:3</Uid>
+</InstancePath>
+<Position>0.12130295393190604 0.060000000000000053 1.6000000000000014</Position>
+<Axis>0 0 1</Axis>
+</ConstraintGeometry>
+<ConstraintGeometry geomType="plane">
+<InstancePath>
+<Uid>chassis:1</Uid>
+</InstancePath>
+<Position>6.6513156593264746 6.500000000000095 3.5527136788005009e-015</Position>
+<Axis>-9.7261648554512266e-016 2.1133053799170379e-015 1.0000000000000147</Axis>
+</ConstraintGeometry>
+</Coincident>
+<Angle name="Angle:11">
+<ConstraintGeometry geomType="plane">
+<InstancePath>
+<Uid>ultra_sonic_sensor:3</Uid>
+</InstancePath>
+<Position>-6.6613381477509392e-016 0.12000000000000011 0</Position>
+<Axis>0 1.0000000000000011 0</Axis>
+</ConstraintGeometry>
+<ConstraintGeometry geomType="line">
+<InstancePath>
+<Uid>chassis:1</Uid>
+</InstancePath>
+<Position>5 6.3000000000000007 3.5527136788005009e-015</Position>
+<Axis>1.6513156593263609 2.1460343230984227e-016 0</Axis>
+</ConstraintGeometry>
+</Angle>
+<Coincident name="Mate:7">
+<ConstraintGeometry geomType="plane">
+<InstancePath>
+<Uid>ultra_sonic_sensor:2</Uid>
+</InstancePath>
+<Position>-0.1386970460680943 0.059999999999999609 1.5999999999999979</Position>
+<Axis>0 0 1</Axis>
+</ConstraintGeometry>
+<ConstraintGeometry geomType="plane">
+<InstancePath>
+<Uid>chassis:1</Uid>
+</InstancePath>
+<Position>6.6513156593264746 6.500000000000095 3.5527136788005009e-015</Position>
+<Axis>-9.7261648554512266e-016 2.1133053799170379e-015 1.0000000000000147</Axis>
+</ConstraintGeometry>
+</Coincident>
+</Constraints>
+</RootAssembly>
+<Assemblies>
+<Assembly name="castor_wheel" uid="castor_wheel_EE3E4825-4AC2-E72F-1F06-9F90929F952A" version="{2B42DE96-4FB8-A7DD-DB3A-1BDDA26C78AD}">
+<ModelUnits mass="lbmass" length="millimeter"/>
+<AssemblyFile name="castor_wheel.iam" type="Inventor Assembly"/>
+</Assembly>
+</Assemblies>
+<Parts>
+<Part name="arduino_uno" uid="arduino_uno_76660304-4480-801E-7FB3-02B9E5A0CC37" version="{FDE2BFE2-B8F6-0FAB-52BA-BFF1ABC377D9}">
+<ModelUnits mass="lbmass" length="millimeter"/>
+<PartFile name="arduino_uno.ipt" type="Inventor Part"/>
+<MassProperties>
+<Mass>0.012198181618212563</Mass>
+<CenterOfMass>-2.5686734791763386 0.18872114458491104 -2.974946247635518</CenterOfMass>
+<Inertia>0.055159953959640642 0.085347687081274728 0.03297390531524657 -0.0017618028418076471 0.003827294996868332 -0.00012790299394821415</Inertia>
+</MassProperties>
+<GeometryFile name="arduino_uno_ipt_14b49d6.STL" type="STL"/>
+<VisualProperties>
+<Ambient r="0.74901960784313726" g="0.74901960784313726" b="0.74901960784313726" a="1"/>
+<Diffuse r="0.74901960784313726" g="0.74901960784313726" b="0.74901960784313726" a="1"/>
+<Specular r="0" g="0" b="0" a="1"/>
+<Emissive r="0" g="0" b="0" a="1"/>
+<Shininess>0.14999999999999999</Shininess>
+</VisualProperties>
+</Part>
+<Part name="axle" uid="axle_AAD2FA47-4A7F-C8E0-B9E0-C88462C512A5" version="{CD0FEB3B-0C9F-CF67-6548-1861A10C1BE5}">
+<ModelUnits mass="lbmass" length="millimeter"/>
+<PartFile name="axle.ipt" type="Inventor Part"/>
+<MassProperties>
+<Mass>0.00041925890346564679</Mass>
+<CenterOfMass>-7.1135516550110588e-012 0.22481824316762622 0</CenterOfMass>
+<Inertia>0.00031107997765793613 2.0781987680670092e-005 0.00031107997934387723 0 0 0</Inertia>
+</MassProperties>
+<GeometryFile name="axle_ipt_aa185e82.STL" type="STL"/>
+<VisualProperties>
+<Ambient r="0.74901960784313726" g="0.74901960784313726" b="0.74901960784313726" a="1"/>
+<Diffuse r="0.74901960784313726" g="0.74901960784313726" b="0.74901960784313726" a="1"/>
+<Specular r="0" g="0" b="0" a="1"/>
+<Emissive r="0" g="0" b="0" a="1"/>
+<Shininess>0.14999999999999999</Shininess>
+</VisualProperties>
+</Part>
+<Part name="base" uid="base_5D56A623-4AEB-079D-0D9E-8A8483A7C71E" version="{400E0C63-9CE9-020D-5CFD-EC7E6D119C65}">
+<ModelUnits mass="lbmass" length="millimeter"/>
+<PartFile name="base.ipt" type="Inventor Part"/>
+<MassProperties>
+<Mass>0.002880292522677711</Mass>
+<CenterOfMass>-7.7357756658956345e-010 -0.14842886230831465 -3.052803243351378e-013</CenterOfMass>
+<Inertia>0.0024424811945197872 0.0053896392694155271 0.0032498196357105759 0 2.5314328411309171e-013 -4.6230644747192445e-013</Inertia>
+</MassProperties>
+<GeometryFile name="base_ipt_4f7c658c.STL" type="STL"/>
+<VisualProperties>
+<Ambient r="0.74901960784313726" g="0.74901960784313726" b="0.74901960784313726" a="1"/>
+<Diffuse r="0.74901960784313726" g="0.74901960784313726" b="0.74901960784313726" a="1"/>
+<Specular r="0" g="0" b="0" a="1"/>
+<Emissive r="0" g="0" b="0" a="1"/>
+<Shininess>0.14999999999999999</Shininess>
+</VisualProperties>
+</Part>
+<Part name="bracket" uid="bracket_74FF415F-4601-1C8A-393A-B4BB3120B44F" version="{970058B6-3DB8-1B0A-44E1-D24C83793993}">
+<ModelUnits mass="lbmass" length="millimeter"/>
+<PartFile name="bracket.ipt" type="Inventor Part"/>
+<MassProperties>
+<Mass>0.0018970749334468844</Mass>
+<CenterOfMass>0.58194778220022902 0.68260341141071557 0.013880835740066419</CenterOfMass>
+<Inertia>0.0030530839884159774 0.0037970239551336333 0.002912972018247298 -3.0648750339604796e-005 8.1940135180548489e-007 -0.00076284368564089847</Inertia>
+</MassProperties>
+<GeometryFile name="bracket_ipt_128372a1.STL" type="STL"/>
+<VisualProperties>
+<Ambient r="0.74901960784313726" g="0.74901960784313726" b="0.74901960784313726" a="1"/>
+<Diffuse r="0.74901960784313726" g="0.74901960784313726" b="0.74901960784313726" a="1"/>
+<Specular r="0" g="0" b="0" a="1"/>
+<Emissive r="0" g="0" b="0" a="1"/>
+<Shininess>0.14999999999999999</Shininess>
+</VisualProperties>
+</Part>
+<Part name="chassis" uid="chassis_7B22FCE7-4D4C-B826-DE1C-4D97B8413C8B" version="{40EE8BF1-E099-60A6-09D2-72805C9BB3F3}">
+<ModelUnits mass="lbmass" length="millimeter"/>
+<PartFile name="chassis.ipt" type="Inventor Part"/>
+<MassProperties>
+<Mass>0.049865469462710331</Mass>
+<CenterOfMass>-0.00048551732006672142 0.215258446194251 0.23842539772641796</CenterOfMass>
+<Inertia>1.2287562592678694 0.46097932315581575 1.6707567856494527 0.0022835017904015448 -2.3845194967527779e-006 0.00015245194067838762</Inertia>
+</MassProperties>
+<GeometryFile name="chassis_ipt_3bf7f3fd.STL" type="STL"/>
+</Part>
+<Part name="motor_dc" uid="motor_dc_1D7F5378-4C77-BFCF-6FDF-C59DF22A18DF" version="{32C9D7A6-A8E6-76C6-7007-D22B7727A6B0}">
+<PartFile name="motor_dc.ipt" type="Inventor Part"/>
+<MassProperties>
+<Mass>0.021513160432233887</Mass>
+<CenterOfMass>-1.709473025515971e-005 1.0497751543049076 -1.0058364226021761</CenterOfMass>
+<Inertia>0.06821978733635374 0.067127282332235416 0.012782588748321305 -1.5924335367770937e-005 -1.1455781585910175e-006 -6.0395726219682077e-008</Inertia>
+</MassProperties>
+<GeometryFile name="motor_dc_ipt_2e68e6c8.STL" type="STL"/>
+<VisualProperties>
+<Ambient r="0.74901960784313726" g="0.74901960784313726" b="0.74901960784313726" a="1"/>
+<Diffuse r="0.74901960784313726" g="0.74901960784313726" b="0.74901960784313726" a="1"/>
+<Specular r="0" g="0" b="0" a="1"/>
+<Emissive r="0" g="0" b="0" a="1"/>
+<Shininess>0.14999999999999999</Shininess>
+</VisualProperties>
+</Part>
+<Part name="motor_driver" uid="motor_driver_30915606-4628-924E-D1F6-FF8934C86CEA" version="{8E791EB2-3235-C58B-A185-65004C715486}">
+<ModelUnits mass="lbmass" length="millimeter"/>
+<PartFile name="motor_driver.ipt" type="Inventor Part"/>
+<MassProperties>
+<Mass>0.0093456820923829061</Mass>
+<CenterOfMass>0.054527256735059731 0.64204341544894938 0.015247318008505675</CenterOfMass>
+<Inertia>0.017761356749192537 0.025706550250168141 0.015103108823278666 -0.0027333351667827264 0.00067282579733152139 -4.391530903697305e-005</Inertia>
+</MassProperties>
+<GeometryFile name="motor_driver_ipt_4af561a1.STL" type="STL"/>
+<VisualProperties>
+<Ambient r="0.74901960784313726" g="0.74901960784313726" b="0.74901960784313726" a="1"/>
+<Diffuse r="0.74901960784313726" g="0.74901960784313726" b="0.74901960784313726" a="1"/>
+<Specular r="0" g="0" b="0" a="1"/>
+<Emissive r="0" g="0" b="0" a="1"/>
+<Shininess>0.14999999999999999</Shininess>
+</VisualProperties>
+</Part>
+<Part name="ultra_sonic_sensor" uid="ultra_sonic_sensor_61A3D42D-4DF1-1204-E84E-ABA9A66C9E28" version="{8C43D4D5-8481-F026-AEE4-88260E411C3E}">
+<PartFile name="ultra_sonic_sensor.ipt" type="Inventor Part"/>
+<MassProperties>
+<Mass>0.0030316488017856592</Mass>
+<CenterOfMass>-2.8286508902967049e-005 0.51851174696400326 0.0040045275567967475</CenterOfMass>
+<Inertia>0.0015564734953991668 0.0067259993139923615 0.0065313958289684318 5.5664798680323798e-006 -1.1204492027732559e-005 -3.9318690468138662e-008</Inertia>
+</MassProperties>
+<GeometryFile name="ultra_sonic_sensor_ipt_9bd7ed42.STL" type="STL"/>
+<VisualProperties>
+<Ambient r="0.74901960784313726" g="0.74901960784313726" b="0.74901960784313726" a="1"/>
+<Diffuse r="0.74901960784313726" g="0.74901960784313726" b="0.74901960784313726" a="1"/>
+<Specular r="0" g="0" b="0" a="1"/>
+<Emissive r="0" g="0" b="0" a="1"/>
+<Shininess>0.14999999999999999</Shininess>
+</VisualProperties>
+</Part>
+<Part name="wheel_40mm_pe" uid="wheel_40mm_pe_CDCDC5FB-46F1-75E0-D10B-529CF329BD61" version="{A16523DE-DC82-0781-2CDD-3A1AC2260E43}">
+<ModelUnits mass="lbmass" length="millimeter"/>
+<PartFile name="wheel_40mm_pe.ipt" type="Inventor Part"/>
+<MassProperties>
+<Mass>0.011644067112519443</Mass>
+<CenterOfMass>-9.5974100227621529e-010 0.79999999999885429 -8.7367145341312844e-013</CenterOfMass>
+<Inertia>0.014993591015003941 0.026564509109682673 0.014993588528799387 -5.6802775816205977e-015 0 -9.7336537548938004e-016</Inertia>
+</MassProperties>
+<GeometryFile name="wheel_40mm_pe_ipt_955fd585.STL" type="STL"/>
+</Part>
+<Part name="wheel" uid="wheel_464DDD35-4CC7-D319-D490-2E8D5FBDDF01" version="{8A0965FF-D8AE-0881-D004-B8DCE2DFCB5D}">
+<PartFile name="wheel.ipt" type="Inventor Part"/>
+<MassProperties>
+<Mass>0.043303285464792458</Mass>
+<CenterOfMass>-1.1579404114267766 -2.2072001681822565e-006 4.1279310736367378e-006</CenterOfMass>
+<Inertia>0.31859701837033888 0.17844267605906614 0.17844243230263726 -4.7631085845321514e-007 4.3026395653560068e-007 1.4701670480180105e-008</Inertia>
+</MassProperties>
+<GeometryFile name="wheel_ipt_231b7df6.STL" type="STL"/>
+<VisualProperties>
+<Ambient r="0.74901960784313726" g="0.74901960784313726" b="0.74901960784313726" a="1"/>
+<Diffuse r="0.74901960784313726" g="0.74901960784313726" b="0.74901960784313726" a="1"/>
+<Specular r="0" g="0" b="0" a="1"/>
+<Emissive r="0" g="0" b="0" a="1"/>
+<Shininess>0.14999999999999999</Shininess>
+</VisualProperties>
+</Part>
+</Parts>
+</SimMechanicsImportXML>
