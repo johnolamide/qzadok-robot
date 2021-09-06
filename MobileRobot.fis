@@ -13,43 +13,43 @@ DefuzzMethod='centroid'
 
 [Input1]
 Name='leftDistance'
-Range=[0 40]
+Range=[0 100]
 NumMFs=3
-MF1='Near':'trapmf',[0 0 10 20]
-MF2='Medium':'trimf',[10 20 30]
-MF3='Far':'trapmf',[20 30 40 40]
+MF1='Near':'trapmf',[0 0 25 50]
+MF2='Medium':'trimf',[25 50 75]
+MF3='Far':'trapmf',[50 75 100 100]
 
 [Input2]
 Name='frontDistance'
-Range=[0 40]
+Range=[0 100]
 NumMFs=3
-MF1='Near':'trapmf',[0 0 10 20]
-MF2='Medium':'trimf',[10 20 30]
-MF3='Far':'trapmf',[20 30 40 40]
+MF1='Near':'trapmf',[0 0 25 50]
+MF2='Medium':'trimf',[25 50 75]
+MF3='Far':'trapmf',[50 75 100 100]
 
 [Input3]
 Name='rightDistance'
-Range=[0 40]
+Range=[0 100]
 NumMFs=3
-MF1='Near':'trapmf',[0 0 10 20]
-MF2='Medium':'trimf',[10 20 30]
-MF3='Far':'trapmf',[20 30 40 40]
+MF1='Near':'trapmf',[0 0 25 50]
+MF2='Medium':'trimf',[25 50 75]
+MF3='Far':'trapmf',[50 75 100 100]
 
 [Output1]
 Name='leftSpeed'
-Range=[0 70]
+Range=[0 255]
 NumMFs=3
-MF1='Slow':'trapmf',[0 0 20 40]
-MF2='Moderate':'trimf',[20 40 60]
-MF3='Fast':'trapmf',[40 60 70 70]
+MF1='Slow':'trapmf',[0 0 50 125]
+MF2='Moderate':'trimf',[50 125 200]
+MF3='Fast':'trapmf',[125 200 255 255]
 
 [Output2]
 Name='rightSpeed'
-Range=[0 70]
+Range=[0 255]
 NumMFs=3
-MF1='Slow':'trapmf',[0 0 20 40]
-MF2='Moderate':'trimf',[20 40 60]
-MF3='Fast':'trapmf',[40 60 70 70]
+MF1='Slow':'trapmf',[0 0 50 125]
+MF2='Moderate':'trimf',[50 125 200]
+MF3='Fast':'trapmf',[125 200 255 255]
 
 [Rules]
 1 1 1, 1 1 (1) : 1

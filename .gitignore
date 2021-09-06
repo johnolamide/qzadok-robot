@@ -1,5 +1,8 @@
 .vscode
 /fuzzy_logic_test
+fisMobileRob.ino
 *.ipynb
 ol.ino
 *.csv
+*.m
+*.slx
