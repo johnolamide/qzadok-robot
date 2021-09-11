@@ -1,5 +1,5 @@
 [System]
-Name='MobileRobot'
+Name='DifferentialControl'
 Type='mamdani'
 Version=2.0
 NumInputs=3
@@ -15,41 +15,41 @@ DefuzzMethod='centroid'
 Name='leftDistance'
 Range=[0 30]
 NumMFs=3
-MF1='Near':'trapmf',[0 0 5 10]
-MF2='Medium':'trimf',[5 12.5 20]
+MF1='Near':'trapmf',[0 0 7.5 15]
+MF2='Medium':'trimf',[7.5 15 22.5]
 MF3='Far':'trapmf',[15 22.5 30 30]
 
 [Input2]
 Name='frontDistance'
 Range=[0 30]
 NumMFs=3
-MF1='Near':'trapmf',[0 0 5 10]
-MF2='Medium':'trimf',[5 12.5 20]
+MF1='Near':'trapmf',[0 0 7.5 15]
+MF2='Medium':'trimf',[7.5 15 22.5]
 MF3='Far':'trapmf',[15 22.5 30 30]
 
 [Input3]
 Name='rightDistance'
 Range=[0 30]
 NumMFs=3
-MF1='Near':'trapmf',[0 0 5 10]
-MF2='Medium':'trimf',[5 12.5 20]
+MF1='Near':'trapmf',[0 0 7.5 15]
+MF2='Medium':'trimf',[7.5 15 22.5]
 MF3='Far':'trapmf',[15 22.5 30 30]
 
 [Output1]
 Name='leftSpeed'
-Range=[0 100]
+Range=[0 150]
 NumMFs=3
-MF1='Slow':'trapmf',[0 0 15 30]
-MF2='Moderate':'trimf',[20 50 70]
-MF3='Fast':'trapmf',[60 80 100 100]
+MF1='Slow':'trapmf',[0 0 30 75]
+MF2='Moderate':'trimf',[30 75 118]
+MF3='Fast':'trapmf',[75 118 150 150]
 
 [Output2]
 Name='rightSpeed'
-Range=[0 100]
+Range=[0 150]
 NumMFs=3
-MF1='Slow':'trapmf',[0 0 15 30]
-MF2='Moderate':'trimf',[20 50 70]
-MF3='Fast':'trapmf',[60 80 100 100]
+MF1='Slow':'trapmf',[0 0 30 75]
+MF2='Moderate':'trimf',[30 75 118]
+MF3='Fast':'trapmf',[75 118 150 150]
 
 [Rules]
 1 1 1, 1 1 (1) : 1

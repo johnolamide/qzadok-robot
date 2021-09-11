@@ -20,8 +20,6 @@ typedef FIS_TYPE(*_FIS_ARR)(FIS_TYPE*, int, _FIS_ARR_OP);
 #include <Servo.h>
 #include <math.h>
 
-#define tanf tan
-
 // Number of inputs to the fuzzy inference system
 const int fis_gcI = 3;
 // Number of outputs to the fuzzy inference system
@@ -36,7 +34,7 @@ FIS_TYPE g_fisOutput[fis_gcO];
   ROBOT DATA STRUCTURE 
 **************************/
 struct Data {
-    int direction = 0; // -1: left, 0: straight, 1: right
+    float theta = 0;
     float left_speed = 0;
     float right_speed = 0;
     float left_distance = 0;
@@ -49,7 +47,7 @@ Robot_Data robot_data;
 /**************************
   ULTRASONIC SENSOR SETUP 
 ***************************/
-#define MAX_DISTANCE 100
+#define MAX_DISTANCE 50
 #define Echo1 31 // LEFT_SENSOR ECHO
 #define Trig1 33 // LEFT_SENSOR TRIG
 #define Echo2 39 // MID_SENSOR ECHO
@@ -61,6 +59,7 @@ NewPing Left_Sensor(Trig1, Echo1, MAX_DISTANCE);
 NewPing Middle_Sensor(Trig2, Echo2, MAX_DISTANCE);
 NewPing Right_Sensor(Trig3, Echo3, MAX_DISTANCE);
 float left_distance, middle_distance, right_distance;
+float theta;
 
 /*****************
   NRF24L01 SETUP 
@@ -71,8 +70,9 @@ void init_radio_com(){
     Serial.println("Initializing Radio Com...");
     radio.begin();
     radio.setChannel(100);
+    radio.setPALevel(RF24_PA_MAX);
+    radio.setDataRate(RF24_250KBPS);
     radio.openWritingPipe(address[0]);
-    radio.setPALevel(RF24_PA_MIN);
 }
 
 /**************
@@ -83,6 +83,7 @@ AF_DCMotor right_motor(3);
 AF_DCMotor left_motor(4);
 Servo servo_motor;
 int current_angle, new_angle;
+uint8_t speed;
 
 /**************** 
   ENCODER SETUP 
@@ -90,22 +91,26 @@ int current_angle, new_angle;
 const byte left_encoder_pin = 20;
 const byte right_encoder_pin = 21;
 // number of pulses
-volatile int left_pulses = 0; 
+volatile int left_pulses = 0;
+int left_count = 0;
 volatile int right_pulses = 0;
+int right_count = 0;
 unsigned long timeold;
 const byte disk_slots = 20;
 const int wheel_radius = 3;
-const int length = 12;
+const int robot_length = 12;
 const int pi = 3.14;
 
 void left_counter() {
    //Update count
    left_pulses++;
+   left_count++;
 }
 
 void right_counter() {
    //Update count
    right_pulses++;
+   right_count++;
 }
 
 void ISR_timerone()
@@ -119,18 +124,6 @@ void ISR_timerone()
     float speed2 = rotation2 * 2 * pi * wheel_radius / 60; // calculate speed for Motor 2: right motor
     robot_data.right_speed = speed2;
     right_pulses = 0; //  reset counter to zero
-    float angle = current_angle * (pi/180); // convert degrees to radian
-    int theta = (speed1 / length) * (tan(angle) * (180 / pi));
-    if (theta < 0) {
-      // direction is left
-        robot_data.direction = -1;
-    } else if (theta > 0){
-      // direction is right
-        robot_data.direction = 1;
-    } else {
-      // direction is straight
-        robot_data.direction = 0;
-  }
 
     Timer1.attachInterrupt(ISR_timerone); // Enable the timer
 }
@@ -144,25 +137,30 @@ void init_encoder(){
     Timer1.attachInterrupt( ISR_timerone ); // Enable the timer
 }
 
-void init_motors(){
-    Serial.println("Initializing DC motors...");
-    left_motor.setSpeed(200);
-    right_motor.setSpeed(200);
+void move_back(){
+    left_motor.setSpeed(100);
+    right_motor.setSpeed(100);
 
     left_motor.run(BACKWARD);
     right_motor.run(BACKWARD);
 
-    delay(3000);
+    delay(500);
 
     left_motor.run(RELEASE);
     right_motor.run(RELEASE);
+}
 
+void init_motors(){
+    Serial.println("Initializing DC motors...");
+    move_back();
 }
 
 void init_servo(){
     Serial.println("Initializing Servo...");
     servo_motor.attach(10);
-    current_angle = 0;
+    current_angle = 90;
+    servo_motor.write(current_angle);
+    
 }
 
 void setup() {
@@ -175,49 +173,67 @@ void setup() {
     init_servo();
 }
 
+void stop_robot(){
+    left_motor.run(RELEASE);
+    right_motor.run(RELEASE);
+}
+
 // Loop routine runs over and over again forever:
 void loop()
 {
     // Read Input: leftDistance
     left_distance = Left_Sensor.ping_cm();
-    g_fisInput[0] = (int) left_distance;
-    // Read Input: middleDistance
     middle_distance = Middle_Sensor.ping_cm();
-    g_fisInput[1] = middle_distance;
-    // Read Input: rightDistance
     right_distance = Right_Sensor.ping_cm();
+
+    g_fisInput[0] = left_distance;
+    g_fisInput[1] = middle_distance;
     g_fisInput[2] = right_distance;
 
-    g_fisOutput[0] = 0;
-    g_fisOutput[1] = 0;
+    robot_data.left_distance = left_distance;
+    robot_data.middle_distance = middle_distance;
+    robot_data.right_distance = right_distance;
 
-    fis_evaluate();
-
-    // Set output value: steerAngle
-    new_angle = (int) g_fisOutput[0];
-
-    if (new_angle > current_angle){
-        for (int pos = current_angle; pos <= new_angle; pos +=1){
-            servo_motor.write(pos);
-            delay(15);
-        }
-
-    } else if (new_angle < current_angle){
-        for (int pos = current_angle; pos >= new_angle; pos -=1){
-            servo_motor.write(pos);
-            delay(15);
-        }
-
+    if (((left_distance <= 5) && (left_distance > 0)) || ((middle_distance <= 5) && (middle_distance > 0)) || ((right_distance <= 5) && (right_distance > 0))) {
+        move_back();
     }
-    current_angle = new_angle;
-    // servo_motor.write(new_angle);
-    // TODO: IMPLEMENT INCREMENTAL SPEED (Probably)
-    // Set output value: motorSpeed
-    left_motor.setSpeed((uint8_t)g_fisOutput[1]);
-    right_motor.setSpeed((uint8_t)g_fisOutput[1]);
-    left_motor.run(FORWARD);
-    right_motor.run(FORWARD);
+    else {
+        g_fisOutput[0] = 0;
+        g_fisOutput[1] = 0;
 
+        fis_evaluate();
+
+        // Set output value: steerAngle
+        int fuzzy_angle = (int) g_fisOutput[0];
+        new_angle = fuzzy_angle + 90;
+
+        if (new_angle > current_angle){
+            for (int pos = current_angle; pos <= new_angle; pos +=1){
+                servo_motor.write(pos);
+                delay(15);
+            }
+            current_angle = new_angle;
+        } else if (new_angle < current_angle){
+            for (int pos = current_angle; pos >= new_angle; pos -=1){
+                servo_motor.write(pos);
+                delay(15);
+            }
+            current_angle = new_angle;
+        }
+        speed = g_fisOutput[1];
+        left_motor.setSpeed(speed);
+        right_motor.setSpeed(speed);
+
+        left_motor.run(FORWARD);
+        right_motor.run(FORWARD);
+        if ((left_count > 1000) && (right_count > 1000)){
+            stop_robot();
+        }
+
+        robot_data.theta = (((robot_data.right_speed + robot_data.left_speed) / 2) / robot_length) * tan(radians(current_angle));
+
+        radio.write(&robot_data, sizeof(robot_data)); // transmit robot data
+    }
 }
 
 //***********************************************************************
@@ -296,17 +312,17 @@ int fis_gIMFCount[] = { 3, 3, 3 };
 int fis_gOMFCount[] = { 2, 3 };
 
 // Coefficients for the Input Member Functions
-FIS_TYPE fis_gMFI0Coeff1[] = { 0, 0, 25, 50 };
-FIS_TYPE fis_gMFI0Coeff2[] = { 25, 50, 75 };
-FIS_TYPE fis_gMFI0Coeff3[] = { 50, 75, 100, 100 };
+FIS_TYPE fis_gMFI0Coeff1[] = { 0, 0, 7.5, 15 };
+FIS_TYPE fis_gMFI0Coeff2[] = { 7.5, 15, 22.5 };
+FIS_TYPE fis_gMFI0Coeff3[] = { 15, 22.5, 30, 30 };
 FIS_TYPE* fis_gMFI0Coeff[] = { fis_gMFI0Coeff1, fis_gMFI0Coeff2, fis_gMFI0Coeff3 };
-FIS_TYPE fis_gMFI1Coeff1[] = { 0, 0, 25, 50 };
-FIS_TYPE fis_gMFI1Coeff2[] = { 25, 50, 75 };
-FIS_TYPE fis_gMFI1Coeff3[] = { 50, 75, 100, 100 };
+FIS_TYPE fis_gMFI1Coeff1[] = { 0, 0, 7.5, 15 };
+FIS_TYPE fis_gMFI1Coeff2[] = { 7.5, 15, 22.5 };
+FIS_TYPE fis_gMFI1Coeff3[] = { 15, 22.5, 30, 30 };
 FIS_TYPE* fis_gMFI1Coeff[] = { fis_gMFI1Coeff1, fis_gMFI1Coeff2, fis_gMFI1Coeff3 };
-FIS_TYPE fis_gMFI2Coeff1[] = { 0, 0, 25, 50 };
-FIS_TYPE fis_gMFI2Coeff2[] = { 25, 50, 75 };
-FIS_TYPE fis_gMFI2Coeff3[] = { 50, 75, 100, 100 };
+FIS_TYPE fis_gMFI2Coeff1[] = { 0, 0, 7.5, 15 };
+FIS_TYPE fis_gMFI2Coeff2[] = { 7.5, 15, 22.5 };
+FIS_TYPE fis_gMFI2Coeff3[] = { 15, 22.5, 30, 30 };
 FIS_TYPE* fis_gMFI2Coeff[] = { fis_gMFI2Coeff1, fis_gMFI2Coeff2, fis_gMFI2Coeff3 };
 FIS_TYPE** fis_gMFICoeff[] = { fis_gMFI0Coeff, fis_gMFI1Coeff, fis_gMFI2Coeff };
 
@@ -314,9 +330,9 @@ FIS_TYPE** fis_gMFICoeff[] = { fis_gMFI0Coeff, fis_gMFI1Coeff, fis_gMFI2Coeff };
 FIS_TYPE fis_gMFO0Coeff1[] = { -0.192, -27.73 };
 FIS_TYPE fis_gMFO0Coeff2[] = { 0.192, 27.7333333333333 };
 FIS_TYPE* fis_gMFO0Coeff[] = { fis_gMFO0Coeff1, fis_gMFO0Coeff2 };
-FIS_TYPE fis_gMFO1Coeff1[] = { 0, 0, 50, 125 };
-FIS_TYPE fis_gMFO1Coeff2[] = { 50, 125, 200 };
-FIS_TYPE fis_gMFO1Coeff3[] = { 125, 200, 255, 255 };
+FIS_TYPE fis_gMFO1Coeff1[] = { 100, 100, 100, 100 };
+FIS_TYPE fis_gMFO1Coeff2[] = { 100, 100, 100 };
+FIS_TYPE fis_gMFO1Coeff3[] = { 100, 100, 100, 100 };
 FIS_TYPE* fis_gMFO1Coeff[] = { fis_gMFO1Coeff1, fis_gMFO1Coeff2, fis_gMFO1Coeff3 };
 FIS_TYPE** fis_gMFOCoeff[] = { fis_gMFO0Coeff, fis_gMFO1Coeff };
 
@@ -401,13 +417,13 @@ int* fis_gRO[] = { fis_gRO0, fis_gRO1, fis_gRO2, fis_gRO3, fis_gRO4, fis_gRO5, f
 FIS_TYPE fis_gIMin[] = { 0, 0, 0 };
 
 // Input range Max
-FIS_TYPE fis_gIMax[] = { 100, 100, 100 };
+FIS_TYPE fis_gIMax[] = { 30, 30, 30 };
 
 // Output range Min
-FIS_TYPE fis_gOMin[] = { -45, 0 };
+FIS_TYPE fis_gOMin[] = { -45, 100 };
 
 // Output range Max
-FIS_TYPE fis_gOMax[] = { 45, 255 };
+FIS_TYPE fis_gOMax[] = { 45, 100 };
 
 //***********************************************************************
 // Data dependent support functions for Fuzzy Inference System           

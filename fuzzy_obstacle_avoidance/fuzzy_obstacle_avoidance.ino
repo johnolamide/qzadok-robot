@@ -33,7 +33,7 @@ FIS_TYPE g_fisOutput[fis_gcO];
   ROBOT DATA STRUCTURE 
 **************************/
 struct Data {
-  int direction = 0; // -1: left, 0: straight, 1: right
+  float theta = 0;
   float left_speed = 0;
   float right_speed = 0;
   float left_distance = 0;
@@ -46,7 +46,7 @@ Robot_Data robot_data;
 /**************************
   ULTRASONIC SENSOR SETUP 
 ***************************/
-#define MAX_DISTANCE 100
+#define MAX_DISTANCE 50
 #define Echo1 31 // LEFT_SENSOR ECHO
 #define Trig1 33 // LEFT_SENSOR TRIG
 #define Echo2 39 // MID_SENSOR ECHO
@@ -67,8 +67,9 @@ const byte address[][6] = {"T", "G"};
 void init_radio_com(){
   radio.begin();
   radio.setChannel(100);
-  radio.openWritingPipe(address[0]);
   radio.setPALevel(RF24_PA_MIN);
+  radio.setDataRate(RF24_250KBPS);
+  radio.openWritingPipe(address[0]);
 }
 
 /**************
@@ -84,22 +85,26 @@ AF_DCMotor left_motor(4);
 const byte left_encoder_pin = 20;
 const byte right_encoder_pin = 21;
 // number of pulses
-volatile int left_pulses = 0; 
+volatile int left_pulses = 0;
+int left_count = 0;
 volatile int right_pulses = 0;
+int right_count = 0;
 unsigned long timeold;
 const byte disk_slots = 20;
 const int wheel_radius = 3;
-const int width = 13;
+const int robot_width = 13;
 const int pi = 3.14;
 
 void left_counter() {
    //Update count
    left_pulses++;
+   left_count++;
 }
 
 void right_counter() {
    //Update count
    right_pulses++;
+   right_count++;
 }
 
 void ISR_timerone()
@@ -113,17 +118,7 @@ void ISR_timerone()
   float speed2 = rotation2 * 2 * pi * wheel_radius / 60; // calculate speed for Motor 2: right motor
   robot_data.right_speed = speed2;
   right_pulses = 0; //  reset counter to zero
-  int theta = (speed1 - speed2) / width;
-  if (theta < 0) {
-      // direction is left
-      robot_data.direction = -1;
-    } else if (theta > 0){
-      // direction is right
-      robot_data.direction = 1;
-  } else {
-      // direction is straight
-      robot_data.direction = 0;
-  }
+  
 
   Timer1.attachInterrupt(ISR_timerone); // Enable the timer
 }
@@ -137,25 +132,34 @@ void init_encoder(){
 }
 
 void init_motors(){
-  left_motor.setSpeed(200);
-  right_motor.setSpeed(200);
+  Serial.println("Initializing Motors...");
+  move_back();
+}
+
+void move_back(){
+  left_motor.setSpeed(100);
+  right_motor.setSpeed(100);
 
   left_motor.run(BACKWARD);
   right_motor.run(BACKWARD);
 
-  delay(3000);
+  delay(500);
 
   left_motor.run(RELEASE);
   right_motor.run(RELEASE);
 
 }
 
+void stop_robot(){
+  left_motor.run(RELEASE);
+  right_motor.run(RELEASE);
+}
+
 void setup() {
   Serial.begin(115200);
-
   Serial.println("Initiating Sequence....");  
-//   init_encoder();
-//   init_radio_com();
+  init_encoder();
+  init_radio_com();
   delay(1000);
   init_motors();
 }
@@ -165,52 +169,45 @@ void loop() {
   /*******************
     FUZZY CONTROLLER
   ********************/
-  // Read Input: leftDistance
+  // Read Input
   left_distance = Left_Sensor.ping_cm();
-  g_fisInput[0] = (int) left_distance;
-  robot_data.left_distance = left_distance;
-  // Read Input: middleDistance
   middle_distance = Middle_Sensor.ping_cm();
-  g_fisInput[1] = (int) middle_distance;
-  robot_data.middle_distance = middle_distance;
-  // Read Input: rightDistance
   right_distance = Right_Sensor.ping_cm();
-  g_fisInput[2] = (int) right_distance;
+
+  g_fisInput[0] = left_distance;
+  g_fisInput[1] = middle_distance;
+  g_fisInput[2] = right_distance;
+
+  robot_data.left_distance = left_distance;
+  robot_data.middle_distance = middle_distance;
   robot_data.right_distance = right_distance;
 
-  g_fisOutput[0] = 0;
-  g_fisOutput[1] = 0;
+  if (((left_distance <= 5) && (left_distance > 0)) || ((middle_distance <= 5) && (middle_distance > 0)) || ((right_distance <= 5) && (right_distance > 0))){
+      move_back();
+  } 
+  else {
+    g_fisOutput[0] = 0;
+    g_fisOutput[1] = 0;
 
-  fis_evaluate();
+    fis_evaluate();
 
-  // Set output value: leftSpeed
-  left_motor.setSpeed((uint8_t)g_fisOutput[0]);
-  left_motor.run(FORWARD);
-  Serial.println(g_fisOutput[0]);
-  // Set output value: rightSpeed
-  right_motor.setSpeed((uint8_t)g_fisOutput[1]);
-  right_motor.run(FORWARD);
-  Serial.println(g_fisOutput[1]);
+    // Set output value
+    left_motor.setSpeed((uint8_t)g_fisOutput[0]);
+    right_motor.setSpeed((uint8_t)g_fisOutput[1]);
 
-  Serial.print("Sending Left Distance: ");
-  Serial.println(robot_data.left_distance);
-  Serial.print("Sending Middle Distance: ");
-  Serial.println(robot_data.middle_distance);
-  Serial.print("Sending Right Distance: ");
-  Serial.println(robot_data.right_distance);
-  Serial.print("Sending Left Speed: ");
-  Serial.println(robot_data.left_speed);
-  Serial.print("Sending Right Speed: ");
-  Serial.println(robot_data.right_speed);
-  Serial.print("Sending Direction: ");
-  Serial.println(robot_data.direction);
-  Serial.println("___________________________________");
+    left_motor.run(FORWARD);
+    right_motor.run(FORWARD);
 
-//   radio.write(&robot_data, sizeof(robot_data));
-  delay(1000);
+    if ((left_count > 1500) || (right_count > 1500)){
+      stop_robot();
+    }
 
+    robot_data.theta = (robot_data.left_speed - robot_data.right_speed) / robot_width;
+
+    radio.write(&robot_data, sizeof(robot_data));
+  }
+  // radio.write(&robot_data, sizeof(robot_data));
 }
-
 
 //***********************************************************************
 // Support functions for Fuzzy Inference System                          
@@ -281,28 +278,28 @@ int fis_gIMFCount[] = { 3, 3, 3 };
 int fis_gOMFCount[] = { 3, 3 };
 
 // Coefficients for the Input Member Functions
-FIS_TYPE fis_gMFI0Coeff1[] = { 0, 0, 25, 50 };
-FIS_TYPE fis_gMFI0Coeff2[] = { 25, 50, 75 };
-FIS_TYPE fis_gMFI0Coeff3[] = { 50, 75, 100, 100 };
+FIS_TYPE fis_gMFI0Coeff1[] = { 0, 0, 7.5, 15 };
+FIS_TYPE fis_gMFI0Coeff2[] = { 7.5, 15, 22.5 };
+FIS_TYPE fis_gMFI0Coeff3[] = { 15, 22.5, 30, 30 };
 FIS_TYPE* fis_gMFI0Coeff[] = { fis_gMFI0Coeff1, fis_gMFI0Coeff2, fis_gMFI0Coeff3 };
-FIS_TYPE fis_gMFI1Coeff1[] = { 0, 0, 25, 50 };
-FIS_TYPE fis_gMFI1Coeff2[] = { 25, 50, 75 };
-FIS_TYPE fis_gMFI1Coeff3[] = { 50, 75, 100, 100 };
+FIS_TYPE fis_gMFI1Coeff1[] = { 0, 0, 7.5, 15 };
+FIS_TYPE fis_gMFI1Coeff2[] = { 7.5, 15, 22.5 };
+FIS_TYPE fis_gMFI1Coeff3[] = { 15, 22.5, 30, 30 };
 FIS_TYPE* fis_gMFI1Coeff[] = { fis_gMFI1Coeff1, fis_gMFI1Coeff2, fis_gMFI1Coeff3 };
-FIS_TYPE fis_gMFI2Coeff1[] = { 0, 0, 25, 50 };
-FIS_TYPE fis_gMFI2Coeff2[] = { 25, 50, 75 };
-FIS_TYPE fis_gMFI2Coeff3[] = { 50, 75, 100, 100 };
+FIS_TYPE fis_gMFI2Coeff1[] = { 0, 0, 7.5, 15 };
+FIS_TYPE fis_gMFI2Coeff2[] = { 7.5, 15, 22.5 };
+FIS_TYPE fis_gMFI2Coeff3[] = { 15, 22.5, 30, 30 };
 FIS_TYPE* fis_gMFI2Coeff[] = { fis_gMFI2Coeff1, fis_gMFI2Coeff2, fis_gMFI2Coeff3 };
 FIS_TYPE** fis_gMFICoeff[] = { fis_gMFI0Coeff, fis_gMFI1Coeff, fis_gMFI2Coeff };
 
 // Coefficients for the Output Member Functions
-FIS_TYPE fis_gMFO0Coeff1[] = { 0, 0, 50, 125 };
-FIS_TYPE fis_gMFO0Coeff2[] = { 50, 125, 200 };
-FIS_TYPE fis_gMFO0Coeff3[] = { 125, 200, 255, 255 };
+FIS_TYPE fis_gMFO0Coeff1[] = { 100, 100, 110, 130 };
+FIS_TYPE fis_gMFO0Coeff2[] = { 120, 145, 160 };
+FIS_TYPE fis_gMFO0Coeff3[] = { 155, 175, 200, 200 };
 FIS_TYPE* fis_gMFO0Coeff[] = { fis_gMFO0Coeff1, fis_gMFO0Coeff2, fis_gMFO0Coeff3 };
-FIS_TYPE fis_gMFO1Coeff1[] = { 0, 0, 50, 125 };
-FIS_TYPE fis_gMFO1Coeff2[] = { 50, 125, 200 };
-FIS_TYPE fis_gMFO1Coeff3[] = { 125, 200, 255, 255 };
+FIS_TYPE fis_gMFO1Coeff1[] = { 100, 100, 110, 130 };
+FIS_TYPE fis_gMFO1Coeff2[] = { 120, 145, 160 };
+FIS_TYPE fis_gMFO1Coeff3[] = { 155, 175, 200, 200 };
 FIS_TYPE* fis_gMFO1Coeff[] = { fis_gMFO1Coeff1, fis_gMFO1Coeff2, fis_gMFO1Coeff3 };
 FIS_TYPE** fis_gMFOCoeff[] = { fis_gMFO0Coeff, fis_gMFO1Coeff };
 
@@ -387,13 +384,13 @@ int* fis_gRO[] = { fis_gRO0, fis_gRO1, fis_gRO2, fis_gRO3, fis_gRO4, fis_gRO5, f
 FIS_TYPE fis_gIMin[] = { 0, 0, 0 };
 
 // Input range Max
-FIS_TYPE fis_gIMax[] = { 100, 100, 100 };
+FIS_TYPE fis_gIMax[] = { 30, 30, 30 };
 
 // Output range Min
-FIS_TYPE fis_gOMin[] = { 0, 0 };
+FIS_TYPE fis_gOMin[] = { 100, 100 };
 
 // Output range Max
-FIS_TYPE fis_gOMax[] = { 255, 255 };
+FIS_TYPE fis_gOMax[] = { 200, 200 };
 
 //***********************************************************************
 // Data dependent support functions for Fuzzy Inference System           
